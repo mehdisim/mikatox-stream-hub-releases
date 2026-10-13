@@ -23,8 +23,8 @@ const CHAPTERS = {
   ],
   twitch: [
     { tpl: "t-hublogin", target: "noid", title: "Pas encore de Client ID ?", text: "Sur l'écran d'accueil de l'app, clique « Je n'ai pas de Client ID ». (Si l'app affiche seulement « Se connecter avec Twitch », ta version en a déjà un : saute à la dernière étape.)", after: (r) => show(r, "console") },
-    { tpl: "t-hublogin", target: "console", title: "Ouvre la console Twitch", text: "Clique « Ouvrir la console Twitch Developers » : elle s'ouvre dans ton navigateur. Connecte-toi, puis « Enregistrer votre application »." },
-    { tpl: "t-twform", target: "public", title: "Remplis le formulaire", text: "Nom : Mikatox Stream Hub (ajoute ton pseudo s'il est pris). URL : http://localhost puis « Ajouter ». Catégorie : Application Integration. Type de client : Public (important).", after: (r) => on(r, "public") },
+    { tpl: "t-hublogin", target: "console", title: "Ouvre la console Twitch", text: "Clique « Ouvrir la console Twitch Developers » : elle s'ouvre dans ton navigateur. Connecte-toi, puis « Enregistrer votre application ». Twitch exige la double authentification (2FA) sur ton compte pour créer une application : active-la d'abord dans Twitch › Paramètres › Sécurité et confidentialité." },
+    { tpl: "t-twform", target: "public", title: "Remplis le formulaire", text: "Nom : Mikatox Stream Hub (ajoute ton pseudo s'il est pris). URL : http://localhost puis « Ajouter ». Catégorie : Application Integration. Type de client : Public (important). Garde une seule ligne d'URL : supprime la ligne vide qui afficherait une erreur HTTPS.", after: (r) => on(r, "public") },
     { tpl: "t-twform", target: "create", title: "Créer", text: "Clique « Créer »." },
     { tpl: "t-twapp", target: "copy", title: "Copie l'ID client", text: "Dans « Gérer », copie l'ID client. Ce n'est pas un secret : pas besoin de « Nouveau secret ».", after: (r) => show(r, "copied") },
     { tpl: "t-hublogin", target: "cid", title: "Colle-le dans l'app", text: "Colle l'ID dans « Client ID Twitch ».", after: (r) => { text(r, "cid", "h7x2k9q4m1p8w3z5r6t0"); hide(r, "noid"); } },

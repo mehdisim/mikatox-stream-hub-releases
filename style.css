@@ -572,3 +572,6 @@ p { margin: 0 0 14px; max-width: 62ch; }
   .cursor { transition: none; }
   .cursor.click { animation: none; }
 }
+
+/* Très petits écrans : le bouton Télécharger reste toujours visible dans l'en-tête. */
+@media (width <= 340px) { .bar .brand span { display: none; } }
