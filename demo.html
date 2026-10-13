@@ -1,0 +1,152 @@
+<!doctype html>
+<!-- © 2026 Mikatox TV. Tous droits réservés. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Démo — Mikatox Stream Hub</title>
+<meta name="description" content="Essaie Mikatox Stream Hub dans ton navigateur : deck, chat, alertes, lumières, mixeur et automatisations, sur une chambre de stream en 3D. Démo avec des données fictives.">
+<meta name="theme-color" content="#0d0907">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }
+</script>
+<script type="module" src="demo.js"></script>
+</head>
+<body class="demo-page">
+<header class="bar">
+  <a class="brand" href="index.html" aria-label="Mikatox Stream Hub, accueil"><img src="assets/icon.png" alt="" width="32" height="32"><span>MIKATOX <b>STREAM HUB</b></span></a>
+  <nav aria-label="Pages">
+    <a href="demo.html" aria-current="page">Démo</a>
+    <a href="guide.html">Guide de connexion</a>
+    <a class="cta-sm" href="https://discord.gg/A5sdHYPCWE">Discord</a>
+  </nav>
+</header>
+
+<main class="demo">
+  <div class="demo-head">
+    <h1>Essaie l'app, ta chambre répond.</h1>
+    <p>Une réplique de Stream Hub avec des données fictives : rien n'est connecté à Twitch ni à OBS. Clique partout.</p>
+  </div>
+
+  <div class="demo-grid">
+    <section class="appwin" aria-label="Réplique de Mikatox Stream Hub">
+      <div class="appbar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <b>Mikatox Stream Hub</b>
+        <span class="appstat"><span class="ok">Twitch</span><span class="ok">OBS</span><span class="ok">Tablette</span><span class="recchip" id="recchip" hidden>REC 00:00:00</span><span class="livechip" id="livechip" hidden>LIVE</span></span>
+      </div>
+      <div class="appbody">
+        <nav class="apprail" role="tablist" aria-label="Rubriques de l'app">
+          <button role="tab" aria-selected="true" aria-controls="p-deck" id="t-deck">Deck</button>
+          <button role="tab" aria-selected="false" aria-controls="p-chat" id="t-chat">Chat &amp; alertes</button>
+          <button role="tab" aria-selected="false" aria-controls="p-lights" id="t-lights">Lumières</button>
+          <button role="tab" aria-selected="false" aria-controls="p-mixer" id="t-mixer">Mixeur</button>
+          <button role="tab" aria-selected="false" aria-controls="p-auto" id="t-auto">Automatisations</button>
+          <button role="tab" aria-selected="false" aria-controls="p-obs" id="t-obs">OBS</button>
+        </nav>
+
+        <div class="panels">
+          <section class="panel" role="tabpanel" id="p-deck" aria-labelledby="t-deck">
+            <h2>Deck</h2>
+            <p class="hint">Les mêmes boutons que sur ta tablette, ton iPad ou ton téléphone.</p>
+            <div class="tiles" id="tiles">
+              <button class="tile" data-tile="LIVE" style="--t:#d8323f"><b>LIVE</b><small>démarrer</small></button>
+              <button class="tile" data-tile="REC" style="--t:#ff6a3d"><b>REC</b><small>enregistrer</small></button>
+              <button class="tile" data-tile="GAMEPLAY" style="--t:#2563eb" aria-pressed="true"><b>GAMEPLAY</b><small>scène</small></button>
+              <button class="tile" data-tile="BRB" style="--t:#4f46e5" aria-pressed="false"><b>BRB</b><small>scène</small></button>
+              <button class="tile" data-tile="MICRO" style="--t:#b45309" aria-pressed="false"><b>MICRO</b><small>couper</small></button>
+              <button class="tile" data-tile="CLIP" style="--t:#0f766e"><b>CLIP</b><small>30 s</small></button>
+              <button class="tile" data-tile="MOMENT" style="--t:#a16207"><b>MOMENT</b><small>marquer</small></button>
+              <button class="tile" data-tile="CHILL" style="--t:#0e7490"><b>CHILL</b><small>ambiance</small></button>
+            </div>
+            <div class="confirm" id="dconfirm" hidden><span id="dconfirm-text">Arrêter ?</span><button class="yes" data-confirm="yes">Arrêter</button><button data-confirm="no">Continuer</button></div>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-chat" aria-labelledby="t-chat" hidden>
+            <h2>Chat &amp; alertes</h2>
+            <div class="simrow" role="group" aria-label="Simuler une alerte">
+              <button data-sim="follow">Follow</button><button data-sim="sub">Sub</button><button data-sim="bits">500 bits</button><button data-sim="raid">Raid ×42</button>
+            </div>
+            <ol class="alertlog" id="alertlog" aria-label="Dernières alertes"></ol>
+            <div class="chatbox" id="chatbox" aria-live="polite" aria-label="Chat"></div>
+            <form class="chatform" id="chatform"><label class="sr" for="chatin">Écrire dans le chat</label><input id="chatin" maxlength="120" placeholder="Écrire dans le chat (démo)" autocomplete="off"><button>Envoyer</button></form>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-lights" aria-labelledby="t-lights" hidden>
+            <h2>Lumières</h2>
+            <p class="hint">Bande LED Bluetooth « BJ_LED » : connectée (démo).</p>
+            <label class="switch"><input type="checkbox" id="power" checked> Allumée</label>
+            <div class="swatches big" role="radiogroup" aria-label="Couleur des LED">
+              <button role="radio" aria-checked="true" aria-label="Braise" style="--c:#e4901e" data-led="#e4901e"></button>
+          <button role="radio" aria-checked="false" aria-label="Violet" style="--c:#b24cff" data-led="#b24cff"></button>
+              <button role="radio" aria-checked="false" aria-label="Rouge" style="--c:#ff3b4d" data-led="#ff3b4d"></button>
+              <button role="radio" aria-checked="false" aria-label="Bleu" style="--c:#3d7bff" data-led="#3d7bff"></button>
+              <button role="radio" aria-checked="false" aria-label="Vert" style="--c:#22d18b" data-led="#22d18b"></button>
+              <button role="radio" aria-checked="false" aria-label="Blanc" style="--c:#f6ede2" data-led="#f6ede2"></button>
+            </div>
+            <label class="range">Luminosité <output id="brightv">100 %</output><input type="range" id="bright" min="5" max="100" value="100"></label>
+            <button class="act" id="flashbtn">Flash (comme pour un sub)</button>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-mixer" aria-labelledby="t-mixer" hidden>
+            <h2>Mixeur</h2>
+            <p class="hint">Les entrées audio d'OBS. 100 % = volume plein, jamais de gain ajouté.</p>
+            <div id="mixer"></div>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-auto" aria-labelledby="t-auto" hidden>
+            <h2>Automatisations</h2>
+            <p class="hint">« Quand X arrive → fais Y ». Désactive une règle, puis simule l'alerte dans « Chat &amp; alertes » : la chambre ne réagit plus.</p>
+            <ul class="rules">
+              <li><label class="switch"><input type="checkbox" data-rule="sub" checked> <b>Nouveau sub</b> → LED en flash orange + alerte à l'écran</label></li>
+              <li><label class="switch"><input type="checkbox" data-rule="raid" checked> <b>Raid</b> → LED en rouge + message de bienvenue dans le chat</label></li>
+              <li><label class="switch"><input type="checkbox" data-rule="cmd" checked> <b>Commande !discord</b> → le lien du Discord dans le chat</label></li>
+            </ul>
+            <ol class="runlog" id="runlog" aria-label="Journal des règles"></ol>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-obs" aria-labelledby="t-obs" hidden>
+            <h2>OBS</h2>
+            <p class="hint">Connexion à OBS : <span class="okdot">connecté</span> (127.0.0.1:4455, démo).</p>
+            <div class="scenes" id="scenes" role="radiogroup" aria-label="Scènes OBS">
+              <button role="radio" aria-checked="true" data-scene="Gameplay">Gameplay</button>
+              <button role="radio" aria-checked="false" data-scene="BRB">BRB</button>
+              <button role="radio" aria-checked="false" data-scene="Chill">Chill</button>
+              <button role="radio" aria-checked="false" data-scene="Début">Début</button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <p class="toast" id="dtoast" aria-live="polite"></p>
+    </section>
+
+    <aside class="roomwrap" aria-label="Ta chambre de stream">
+      <div class="room" id="room" role="img" aria-label="La chambre de stream en 3D, qui réagit aux actions de l'app"></div>
+      <p class="roomcap">Ta chambre, en direct : LED, écran, tablette et panneau ON AIR suivent l'app.</p>
+    </aside>
+  </div>
+
+  <section class="demo-end">
+    <h2>Ça te plaît&nbsp;?</h2>
+    <p>Branche l'app pour de vrai en quelques minutes, ou rejoins le Discord pour être prévenu de la sortie.</p>
+    <div class="actions center"><a class="cta" href="guide.html">Guide de connexion</a><a class="ghost" href="https://discord.gg/A5sdHYPCWE">Rejoindre le Discord</a></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <ul class="socials" aria-label="Réseaux de Mikatox TV">
+    <li><a href="https://www.twitch.tv/mikatoxtv">Twitch</a></li>
+    <li><a href="https://www.youtube.com/@MikatoxVOD">YouTube</a></li>
+    <li><a href="https://discord.gg/A5sdHYPCWE">Discord</a></li>
+    <li><a href="https://www.tiktok.com/@mikatoxtv">TikTok</a></li>
+    <li><a href="https://www.instagram.com/mikatox_tv/">Instagram</a></li>
+  </ul>
+  <p>© 2026 <a href="https://www.twitch.tv/mikatoxtv">Mikatox TV</a>. Tous droits réservés. Démo avec des données fictives. Projet indépendant, ni affilié à ni approuvé par Twitch ou OBS Project.</p>
+</footer>
+</body>
+</html>

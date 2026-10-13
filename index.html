@@ -1,0 +1,156 @@
+<!doctype html>
+<!-- © 2026 Mikatox TV. Tous droits réservés. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mikatox Stream Hub — ta chambre réagit à ton live</title>
+<meta name="description" content="Application gratuite pour streamer sur Twitch avec OBS : chat fiable, alertes, deck sur tablette, iPad et téléphone, lumières qui réagissent aux subs, automatisations.">
+<meta name="theme-color" content="#0d0907">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }
+</script>
+<script type="module" src="index.js"></script>
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html" aria-label="Mikatox Stream Hub, accueil"><img src="assets/icon.png" alt="" width="32" height="32"><span>MIKATOX <b>STREAM HUB</b></span></a>
+  <nav aria-label="Pages">
+    <a href="demo.html">Démo</a>
+    <a href="guide.html">Guide de connexion</a>
+    <a class="cta-sm" href="https://discord.gg/A5sdHYPCWE">Discord</a>
+  </nav>
+</header>
+
+<main>
+  <section class="room-hero" aria-labelledby="hero-title">
+    <div class="room" id="room" role="img" aria-label="Une chambre de stream la nuit : bureau, écran, tablette, micro et bandes LED"></div>
+    <div class="hero-copy">
+      <h1 id="hero-title">Ta chambre réagit à ton&nbsp;live.</h1>
+      <p class="lead">Mikatox Stream Hub pilote OBS, garde ton chat Twitch connecté et fait réagir tes lumières à chaque sub. Essaie&nbsp;: appuie, la pièce répond.</p>
+
+      <div class="deckstrip" role="group" aria-label="Télécommande de démonstration">
+        <button class="key" data-act="sub"><span>SUB</span><small>simuler</small></button>
+        <button class="key raid" data-act="raid"><span>RAID</span><small>×42</small></button>
+        <button class="key rec" data-act="rec" aria-pressed="false"><span>REC</span><small class="rec-time">prêt</small></button>
+        <div class="swatches" role="radiogroup" aria-label="Couleur des LED">
+          <button role="radio" aria-checked="true" aria-label="Braise" style="--c:#e4901e" data-led="#e4901e"></button>
+          <button role="radio" aria-checked="false" aria-label="Violet" style="--c:#b24cff" data-led="#b24cff"></button>
+          <button role="radio" aria-checked="false" aria-label="Rouge" style="--c:#ff3b4d" data-led="#ff3b4d"></button>
+          <button role="radio" aria-checked="false" aria-label="Bleu" style="--c:#3d7bff" data-led="#3d7bff"></button>
+          <button role="radio" aria-checked="false" aria-label="Vert" style="--c:#22d18b" data-led="#22d18b"></button>
+        </div>
+      </div>
+      <div class="confirm" id="confirm" hidden>
+        <span>Arrêter l'enregistrement&nbsp;?</span>
+        <button class="yes" data-confirm="yes">Arrêter</button>
+        <button data-confirm="no">Continuer</button>
+      </div>
+      <p class="status" id="status" aria-live="polite">Démo : rien n'est envoyé nulle part.</p>
+
+      <div class="actions">
+        <a class="cta" href="demo.html">Essayer la démo complète</a>
+        <a class="ghost" href="https://discord.gg/A5sdHYPCWE">Rejoindre le Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="flow-title">
+    <h2 id="flow-title">Un appui sur ta tablette, tout ton stream suit.</h2>
+    <ol class="flow">
+      <li><b>Ta tablette, ton iPad ou ton téléphone</b><span>Tu appuies sur « Ambiance chill » dans le deck. Pas d'app à installer : il s'ouvre dans le navigateur avec un QR code.</span></li>
+      <li><b>Stream Hub, sur ton PC</b><span>Il reçoit l'ordre, vérifie que ton appareil est bien appairé, puis enchaîne les actions.</span></li>
+      <li><b>OBS, le chat, tes LED</b><span>La scène change, tes bandes LED passent au bleu, le chat reste connecté. Tu vois le résultat confirmé sur la tablette.</span></li>
+    </ol>
+  </section>
+
+  <section class="band alt" id="chat" aria-labelledby="chat-title">
+    <div class="split">
+      <div>
+        <h2 id="chat-title">Le chat qui ne décroche plus.</h2>
+        <p>Fini le « connexion au chat… » qui tourne en boucle dans OBS, même derrière un VPN. Le chat se reconnecte tout seul, sans perdre de messages, et s'affiche aussi sur ta tablette.</p>
+        <p>Follows, subs, bits, raids et points de chaîne arrivent en direct. Un sub peut faire clignoter tes LED, changer de scène et jouer un son, en même temps.</p>
+      </div>
+      <ol class="feed" aria-label="Exemple d'alertes">
+        <li class="hot"><b>GrosStreamer</b> — raid ×42</li>
+        <li><b>Yassine</b> — bits ×500 <small>gg la team !</small></li>
+        <li><b>Nora</b> — sub · Tier 1</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="plus-title">
+    <h2 id="plus-title">Tout le reste, au même endroit.</h2>
+    <dl class="list">
+      <div><dt>Mixeur</dt><dd>Le volume de chaque micro et de chaque son d'OBS, au doigt, depuis la tablette.</dd></div>
+      <div><dt>Ambiances</dt><dd>Un bouton change la scène et la couleur de tes bandes LED en même temps.</dd></div>
+      <div><dt>Automatisations</dt><dd>« Quand un sub arrive → lumières orange, scène, son. » Des idées toutes prêtes pour démarrer.</dd></div>
+      <div><dt>Lumières Wi-Fi</dt><dd>Philips Hue, Govee, Elgato, Nanoleaf, WLED, LIFX et LSC Smart, en plus du Bluetooth : l'app détecte ce qui est sur ton réseau.</dd></div>
+      <div><dt>Voix et sons</dt><dd>Un soundboard avec tes propres sons et des effets de voix sur ton micro (radio, téléphone, grave…), en un bouton.</dd></div>
+      <div><dt>Stream Deck</dt><dd>Branche ton Stream Deck Elgato (MK.2, XL) : ses touches pilotent les mêmes boutons que la tablette.</dd></div>
+      <div><dt>Ton style</dt><dd>Couleurs, taille et forme des boutons, fond personnalisé : chaque tablette a son look.</dd></div>
+      <div><dt>Fond de caméra</dt><dd>Retirer, flouter ou remplacer le fond de ta webcam, sans fond vert, avec ou sans carte graphique NVIDIA.</dd></div>
+      <div><dt>Moments et Shorts</dt><dd>Marque les meilleurs passages pendant le live, l'app prépare les extraits verticaux avec sous-titres.</dd></div>
+      <div><dt>Résumé de fin de live</dt><dd>Durée, moments, clips et alertes du live, prêts à coller sur Discord.</dd></div>
+    </dl>
+  </section>
+
+  <section class="band alt" aria-labelledby="guide-title">
+    <div class="split">
+      <div>
+        <h2 id="guide-title">Branché en trois étapes.</h2>
+        <p>Le guide animé te montre où cliquer, écran par écran&nbsp;: le mot de passe d'OBS, le Client ID de Twitch, puis le code de ta tablette.</p>
+        <div class="actions"><a class="cta" href="guide.html">Ouvrir le guide de connexion</a></div>
+      </div>
+      <ol class="steps-mini">
+        <li><span>1</span>OBS → Outils → Paramètres du serveur WebSocket</li>
+        <li><span>2</span>dev.twitch.tv → ton application → Client ID</li>
+        <li><span>3</span>QR code → code à 6 chiffres sur la tablette</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="leger" aria-labelledby="leger-title">
+    <div class="split">
+      <div>
+        <h2 id="leger-title">Pensée pour un seul PC.</h2>
+        <p>Le jeu, OBS et le multistream tournent souvent sur la même machine. L'app reste discrète : rien n'est rafraîchi quand sa fenêtre est réduite, et un mode économie coupe les animations.</p>
+        <p>L'effet de fond de caméra tourne sur le processeur et laisse toute la carte graphique au jeu.</p>
+      </div>
+      <figure class="spec">
+        <div class="spec-row"><span>Services payants</span><b>aucun</b></div>
+        <div class="spec-row"><span>Mots de passe</span><b>dans le trousseau du système</b></div>
+        <div class="spec-row"><span>Fonctionne</span><b>en local, sur ton réseau</b></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band end" id="telecharger" aria-labelledby="dl-title">
+    <h2 id="dl-title">Prêt pour ton prochain live&nbsp;?</h2>
+    <p>Gratuit, pour Windows 10 et 11 (64 bits). L'app tablette, elle, se télécharge directement depuis Stream Hub : aucun store, aucun compte. Si Windows affiche un avertissement à l'installation, clique sur «&nbsp;Informations complémentaires&nbsp;» puis «&nbsp;Exécuter quand même&nbsp;».</p>
+    <div class="actions center">
+      <a class="cta" href="https://github.com/mikatoxtv/mikatox-stream-hub-releases/releases/latest">Télécharger pour Windows</a>
+      <a class="ghost" href="https://discord.gg/A5sdHYPCWE">Rejoindre le Discord</a>
+      <a class="ghost" href="https://www.twitch.tv/mikatoxtv">Suivre sur Twitch</a>
+    </div>
+    <p class="fine">Version macOS : bientôt. Les nouvelles versions sont annoncées en premier sur le Discord et en live.</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <ul class="socials" aria-label="Réseaux de Mikatox TV">
+    <li><a href="https://www.twitch.tv/mikatoxtv">Twitch</a></li>
+    <li><a href="https://www.youtube.com/@MikatoxVOD">YouTube</a></li>
+    <li><a href="https://discord.gg/A5sdHYPCWE">Discord</a></li>
+    <li><a href="https://www.tiktok.com/@mikatoxtv">TikTok</a></li>
+    <li><a href="https://www.instagram.com/mikatox_tv/">Instagram</a></li>
+  </ul>
+  <p>© 2026 <a href="https://www.twitch.tv/mikatoxtv">Mikatox TV</a>. Tous droits réservés. Projet indépendant, ni affilié à ni approuvé par Twitch ou OBS Project.</p>
+</footer>
+</body>
+</html>

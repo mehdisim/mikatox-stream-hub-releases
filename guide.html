@@ -1,0 +1,200 @@
+<!doctype html>
+<!-- © 2026 Mikatox TV. Tous droits réservés. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guide de connexion — Mikatox Stream Hub</title>
+<meta name="description" content="Connecter Mikatox Stream Hub à OBS, à Twitch et à ta tablette, étape par étape, avec des écrans animés. Guide PDF à télécharger en français et en anglais.">
+<meta name="theme-color" content="#0d0907">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="guide.js"></script>
+</head>
+<body class="guide-page">
+<header class="bar">
+  <a class="brand" href="index.html" aria-label="Mikatox Stream Hub, accueil"><img src="assets/icon.png" alt="" width="32" height="32"><span>MIKATOX <b>STREAM HUB</b></span></a>
+  <nav aria-label="Pages">
+    <a href="demo.html">Démo</a>
+    <a href="guide.html" aria-current="page">Guide de connexion</a>
+    <a class="cta-sm" href="https://discord.gg/A5sdHYPCWE">Discord</a>
+  </nav>
+</header>
+
+<main class="guide">
+  <div class="guide-head">
+    <h1>Branche l'app en quelques minutes.</h1>
+    <p>Choisis une étape, le curseur te montre où cliquer. À faire une seule fois : l'app retient tout.</p>
+    <div class="actions">
+      <a class="cta" href="assets/guide/Guide-connexion-Mikatox-Stream-Hub.pdf" download>Télécharger le PDF (FR)</a>
+      <a class="ghost" href="assets/guide/Connection-guide-Mikatox-Stream-Hub-EN.pdf" download lang="en">Download the PDF (EN)</a>
+    </div>
+  </div>
+
+  <div class="chapters" role="tablist" aria-label="Parties du guide">
+    <button role="tab" aria-selected="true" data-ch="obs" id="c-obs"><span>1</span>OBS</button>
+    <button role="tab" aria-selected="false" data-ch="twitch" id="c-twitch"><span>2</span>Twitch</button>
+    <button role="tab" aria-selected="false" data-ch="tablet" id="c-tablet"><span>3</span>Tablette</button>
+  </div>
+
+  <div class="player">
+    <div class="stage" id="stage" aria-hidden="true">
+      <div class="screen" id="screen"></div>
+      <svg class="cursor" id="cursor" viewBox="0 0 24 24" width="30" height="30"><path d="M4 2l15 11-6.5 1.2 3.8 7.3-2.8 1.4-3.8-7.3L4 20z" fill="#fff" stroke="#0d0907" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="steps-col">
+      <p class="caption" id="caption" aria-live="polite"></p>
+      <div class="controls">
+        <button id="prev" aria-label="Étape précédente">Précédent</button>
+        <button id="replay">Rejouer</button>
+        <button id="next" class="primary">Suivant</button>
+      </div>
+      <ol class="steplist" id="steplist" aria-label="Étapes"></ol>
+    </div>
+  </div>
+
+  <section class="guide-help">
+    <h2>Un souci&nbsp;?</h2>
+    <dl class="list">
+      <div><dt>« OBS injoignable »</dt><dd>OBS est-il ouvert, le serveur WebSocket coché, et le port 4455 des deux côtés ? L'app et OBS doivent être sur le même PC.</dd></div>
+      <div><dt>Mot de passe refusé</dt><dd>Recopie-le avec le bouton « Copier » d'OBS. Si tu as cliqué « Générer le mot de passe », l'ancien ne marche plus.</dd></div>
+      <div><dt>« Type Confidentiel »</dt><dd>Sur dev.twitch.tv : Gérer ton application → Type de client : Public → Enregistrer, puis reconnecte-toi dans l'app.</dd></div>
+      <div><dt>La tablette ne trouve pas le PC</dt><dd>Même Wi-Fi que le PC. Avec un VPN, active l'accès au réseau local, et clique « Autoriser les appareils du réseau » dans l'onglet Deck.</dd></div>
+    </dl>
+    <p class="fine">Toujours bloqué ? Passe sur le <a href="https://discord.gg/A5sdHYPCWE">Discord</a>. Ne partage jamais ton mot de passe OBS en public.</p>
+  </section>
+</main>
+
+<!-- ===================== Écrans (illustrations) ===================== -->
+<template id="t-obs">
+  <div class="m-win m-obs">
+    <div class="m-title">OBS Studio</div>
+    <div class="m-menubar"><span>Fichier</span><span>Édition</span><span>Affichage</span><span>Docks</span><span>Profil</span><span data-k="outils">Outils</span><span>Aide</span></div>
+    <div class="m-menu" data-k="menu" hidden>
+      <div>Assistant de configuration automatique</div>
+      <div data-k="ws">Paramètres du serveur WebSocket</div>
+      <div>Scripts</div>
+    </div>
+    <div class="m-obsbody"><i></i><i></i><i></i></div>
+  </div>
+</template>
+
+<template id="t-obsdlg">
+  <div class="m-win m-obs">
+    <div class="m-title">Paramètres du serveur WebSocket</div>
+    <div class="m-dlg">
+      <p class="m-h">Paramètres du plugin</p>
+      <div class="m-row"><span class="m-cb" data-k="enable"></span>Activer le serveur WebSocket</div>
+      <p class="m-h">Paramètres du serveur</p>
+      <div class="m-row">Port du serveur <span class="m-field">4455</span></div>
+      <div class="m-row"><span class="m-cb" data-k="auth"></span>Activer l'authentification</div>
+      <div class="m-row">Mot de passe du serveur <span class="m-field">••••••••••</span></div>
+      <div class="m-row m-end"><span class="m-btn" data-k="info">Afficher les informations de connexion</span><span class="m-btn m-pri" data-k="apply">Appliquer</span></div>
+    </div>
+  </div>
+</template>
+
+<template id="t-obsinfo">
+  <div class="m-win m-obs">
+    <div class="m-title">Informations de connexion WebSocket</div>
+    <div class="m-dlg">
+      <div class="m-row">Port du serveur <span class="m-field">4455</span></div>
+      <div class="m-row">Mot de passe du serveur <span class="m-field">kP4w9sQ2xLm8</span><span class="m-btn" data-k="copy">Copier</span></div>
+      <p class="m-tip" data-k="copied" hidden>Copié</p>
+    </div>
+  </div>
+</template>
+
+<template id="t-hubobs">
+  <div class="m-win m-hub">
+    <div class="m-title">Mikatox Stream Hub · OBS</div>
+    <div class="m-dlg">
+      <p class="m-big">Connexion à OBS <span class="m-pill" data-k="pill">déconnecté</span></p>
+      <div class="m-row"><span class="m-field">127.0.0.1</span><span class="m-field">4455</span><span class="m-field m-wide" data-k="pwd">Mot de passe OBS</span></div>
+      <div class="m-row"><span class="m-btn m-pri" data-k="connect">Se connecter</span></div>
+    </div>
+  </div>
+</template>
+
+<template id="t-hublogin">
+  <div class="m-win m-hub">
+    <div class="m-title">Mikatox Stream Hub</div>
+    <div class="m-dlg m-center">
+      <p class="m-big">Mikatox Stream Hub</p>
+      <p class="m-sub">Ton chat Twitch, fiable. Même derrière un VPN.</p>
+      <div class="m-row m-col"><span class="m-label">Client ID Twitch</span><span class="m-field m-wide" data-k="cid">Colle ici le Client ID de ton application dev.twitch.tv</span></div>
+      <div class="m-row"><span class="m-btn m-pri" data-k="login">Se connecter avec Twitch</span></div>
+      <p class="m-link" data-k="noid">Je n'ai pas de Client ID</p>
+      <span class="m-btn" data-k="console" hidden>Ouvrir la console Twitch Developers</span>
+      <div class="m-code" data-k="code" hidden><span>WDJB-MJHT</span><small>En attente de ta validation…</small></div>
+    </div>
+  </div>
+</template>
+
+<template id="t-twform">
+  <div class="m-win m-tw">
+    <div class="m-twtop">twitch <b>developers</b> · Enregistrer votre application</div>
+    <div class="m-dlg">
+      <span class="m-label">Nom</span><span class="m-field m-wide">Mikatox Stream Hub</span>
+      <span class="m-label">URL de redirection OAuth</span><div class="m-row"><span class="m-field m-wide">http://localhost</span><span class="m-btn">Ajouter</span></div>
+      <span class="m-label">Catégorie</span><span class="m-field m-wide">Application Integration</span>
+      <span class="m-label">Type de client</span><div class="m-row"><span class="m-radio">Confidentiel</span><span class="m-radio" data-k="public">Public</span></div>
+      <div class="m-row"><span class="m-btn m-pri" data-k="create">Créer</span></div>
+    </div>
+  </div>
+</template>
+
+<template id="t-twapp">
+  <div class="m-win m-tw">
+    <div class="m-twtop">twitch <b>developers</b> · Mikatox Stream Hub</div>
+    <div class="m-dlg">
+      <span class="m-label">ID client</span>
+      <div class="m-row"><span class="m-field m-mono">h7x2k9q4m1p8w3z5r6t0</span><span class="m-btn" data-k="copy">Copier</span></div>
+      <p class="m-tip" data-k="copied" hidden>Copié</p>
+    </div>
+  </div>
+</template>
+
+<template id="t-hubdeck">
+  <div class="m-win m-hub">
+    <div class="m-title">Mikatox Stream Hub · Deck</div>
+    <div class="m-dlg m-split">
+      <div class="m-qr" data-k="qr"><i></i><i></i><i></i><i></i></div>
+      <div><p class="m-big">Ouvrir le deck sur la tablette</p><p class="m-sub">Scanne le QR code, même Wi-Fi que ce PC.</p><p class="m-sub">Code d'appairage : <b class="m-pin">482 913</b></p></div>
+    </div>
+  </div>
+</template>
+
+<template id="t-phone">
+  <div class="m-phone">
+    <div class="m-pscreen" data-k="land">
+      <p class="m-big">MIKATOX <b>DECK</b></p>
+      <span class="m-btn m-pri m-block" data-k="web">Ouvrir le deck dans le navigateur</span>
+      <span class="m-btn m-block">Télécharger l'application Android</span>
+    </div>
+    <div class="m-pscreen" data-k="pair" hidden>
+      <p class="m-big">Appairer cet appareil</p>
+      <span class="m-field m-pinfield" data-k="pin">······</span>
+      <span class="m-btn m-pri m-block" data-k="ok">Appairer</span>
+    </div>
+    <div class="m-pscreen m-grid" data-k="deck" hidden>
+      <i style="--t:#d8323f">LIVE</i><i style="--t:#ff6a3d">REC</i><i style="--t:#2563eb">GAME</i><i style="--t:#4f46e5">BRB</i><i style="--t:#b45309">MICRO</i><i style="--t:#0f766e">CLIP</i>
+    </div>
+  </div>
+</template>
+
+<footer class="foot">
+  <ul class="socials" aria-label="Réseaux de Mikatox TV">
+    <li><a href="https://www.twitch.tv/mikatoxtv">Twitch</a></li>
+    <li><a href="https://www.youtube.com/@MikatoxVOD">YouTube</a></li>
+    <li><a href="https://discord.gg/A5sdHYPCWE">Discord</a></li>
+    <li><a href="https://www.tiktok.com/@mikatoxtv">TikTok</a></li>
+    <li><a href="https://www.instagram.com/mikatox_tv/">Instagram</a></li>
+  </ul>
+  <p>© 2026 <a href="https://www.twitch.tv/mikatoxtv">Mikatox TV</a>. Tous droits réservés. Les écrans sont des illustrations ; les mots de passe et identifiants montrés sont inventés.</p>
+</footer>
+</body>
+</html>
