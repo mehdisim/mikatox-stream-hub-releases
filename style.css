@@ -575,3 +575,9 @@ p { margin: 0 0 14px; max-width: 62ch; }
 
 /* Très petits écrans : le bouton Télécharger reste toujours visible dans l'en-tête. */
 @media (width <= 340px) { .bar .brand span { display: none; } }
+
+.bar nav .nav-coffee { color: var(--text); border: 1px solid rgb(255 255 255 / 24%); padding: 8px 14px; border-radius: 999px; }
+
+.bar nav .nav-coffee:hover { border-color: var(--led); }
+
+.ghost.coffee:hover { border-color: var(--led); }
