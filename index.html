@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mikatox Stream Hub — ta chambre réagit à ton live</title>
-<meta name="description" content="Application gratuite pour streamer sur Twitch avec OBS : chat fiable, alertes, deck sur tablette, iPad et téléphone, lumières qui réagissent aux subs, automatisations.">
+<meta name="description" content="Application gratuite pour streamer sur Twitch avec OBS : studio d'alertes, voyant EN DIRECT, deck sur tablette, lumières qui réagissent aux subs, automatisations.">
 <meta name="theme-color" content="#0d0907">
 <link rel="icon" href="assets/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
     <div class="room" id="room" role="img" aria-label="Une chambre de stream la nuit : bureau, écran, tablette, micro et bandes LED"></div>
     <div class="hero-copy">
       <h1 id="hero-title">Ta chambre réagit à ton&nbsp;live.</h1>
-      <p class="lead">Mikatox Stream Hub pilote OBS, garde ton chat Twitch connecté et fait réagir tes lumières à chaque sub. Essaie&nbsp;: appuie, la pièce répond.</p>
+      <p class="lead">OBS, chat, alertes, tablette et lumières dans une seule app. Appuie, la pièce répond.</p>
 
       <div class="deckstrip" role="group" aria-label="Télécommande de démonstration">
         <button class="key" data-act="sub"><span>SUB</span><small>simuler</small></button>
@@ -65,21 +65,64 @@
     </div>
   </section>
 
-  <section class="band" aria-labelledby="flow-title">
-    <h2 id="flow-title">Un appui sur ta tablette, tout ton stream suit.</h2>
-    <ol class="flow">
-      <li><b>Ta tablette, ton iPad ou ton téléphone</b><span>Tu appuies sur « Ambiance chill » dans le deck. Pas d'app à installer : il s'ouvre dans le navigateur avec un QR code.</span></li>
-      <li><b>Stream Hub, sur ton PC</b><span>Il reçoit l'ordre, vérifie que ton appareil est bien appairé, puis enchaîne les actions.</span></li>
-      <li><b>OBS, le chat, tes LED</b><span>La scène change, tes bandes LED passent au bleu, le chat reste connecté. Tu vois le résultat confirmé sur la tablette.</span></li>
+  <section class="band how" id="comment" aria-labelledby="how-title">
+    <h2 id="how-title">Regarde-la tourner.</h2>
+    <div class="film" id="film" data-scene="0">
+      <div class="film-app" aria-hidden="true">
+        <div class="fa-bar">
+          <i></i><i></i><i></i>
+          <b>MIKATOX <span>STREAM HUB</span></b>
+          <span class="fa-live"><em></em>EN DIRECT <time id="film-clock">01:23:40</time><small>👁 128</small></span>
+        </div>
+        <div class="fa-body">
+          <div class="fa-stage">
+            <div class="fa-game"></div>
+            <div class="fa-alert"><span>★</span><p><b>Nora</b> s'abonne&nbsp;!</p></div>
+            <div class="fa-confetti"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <ul class="fa-chat">
+            <li><b style="color:#7dd3ff">Yassine</b> gg le clutch</li>
+            <li><b style="color:#ff7eb6">Lina</b> trop fort 🔥</li>
+            <li class="fa-sub"><b style="color:#ffd166">Nora</b> s'abonne · Tier 1</li>
+            <li class="fa-thanks"><b style="color:#e4901e">Mikatox</b> Merci Nora pour l'abonnement ! 🎉</li>
+          </ul>
+        </div>
+      </div>
+      <div class="film-tab" aria-hidden="true">
+        <div class="ft-bar"><b>LIVE</b><span class="ft-onair">● EN DIRECT</span></div>
+        <div class="ft-row ok">Santé du live <b>OK</b></div>
+        <div class="ft-row ft-event"><span><b>Nora</b> — sub</span><span class="ft-btn">Remercier</span></div>
+        <div class="ft-row">Alertes <span class="ft-pill">⏸ Pause</span></div>
+        <div class="ft-row ft-lights">Lumières <span class="ft-sw" style="--c:#e4901e"></span><span class="ft-sw" style="--c:#b24cff"></span><span class="ft-sw" style="--c:#3d7bff"></span></div>
+      </div>
+    </div>
+    <ol class="film-steps" aria-label="Étapes de la démo">
+      <li><button data-scene="0" aria-pressed="true"><span>1</span>Un sub arrive</button></li>
+      <li><button data-scene="1" aria-pressed="false"><span>2</span>L'alerte part dans OBS</button></li>
+      <li><button data-scene="2" aria-pressed="false"><span>3</span>Ta tablette remercie</button></li>
+      <li><button data-scene="3" aria-pressed="false"><span>4</span>Ta pièce s'allume</button></li>
     </ol>
   </section>
 
-  <section class="band alt" id="chat" aria-labelledby="chat-title">
+  <section class="band alt" id="nouveau" aria-labelledby="new-title">
+    <h2 id="new-title">Nouveau dans la 1.0.6.</h2>
+    <ul class="tiles">
+      <li class="t-alert"><i aria-hidden="true">★</i><b>Studio d'alertes</b><span>12 modèles, glisser-déposer</span></li>
+      <li class="t-live"><i aria-hidden="true">●</i><b>Voyant EN DIRECT</b><span>durée et spectateurs</span></li>
+      <li class="t-tab"><i aria-hidden="true">▣</i><b>Onglet LIVE</b><span>sur ta tablette</span></li>
+      <li class="t-fx"><i aria-hidden="true">✦</i><b>Effets et sons</b><span>par alerte, testés dans l'app</span></li>
+      <li class="t-light"><i aria-hidden="true">◐</i><b>Lumières une par une</b><span>chaque lampe sa couleur</span></li>
+      <li class="t-cat"><i aria-hidden="true">⌕</i><b>Catégorie Twitch</b><span>suggestions en tapant</span></li>
+      <li class="t-mod"><i aria-hidden="true">⛨</i><b>Modération</b><span>depuis la tablette</span></li>
+      <li class="t-brb"><i aria-hidden="true">⏱</i><b>Je reviens</b><span>minuteur dans le stream</span></li>
+    </ul>
+  </section>
+
+  <section class="band" id="chat" aria-labelledby="chat-title">
     <div class="split">
       <div>
         <h2 id="chat-title">Le chat qui ne décroche plus.</h2>
-        <p>Fini le « connexion au chat… » qui tourne en boucle dans OBS, même derrière un VPN. Le chat se reconnecte tout seul, sans perdre de messages, et s'affiche aussi sur ta tablette.</p>
-        <p>Follows, subs, bits, raids et points de chaîne arrivent en direct. Un sub peut faire clignoter tes LED, changer de scène et jouer un son, en même temps.</p>
+        <p>Il se reconnecte tout seul, même derrière un VPN. Les alertes arrivent en direct et déclenchent ce que tu veux.</p>
       </div>
       <ol class="feed" aria-label="Exemple d'alertes">
         <li class="hot"><b>GrosStreamer</b> — raid ×42</li>
@@ -89,27 +132,25 @@
     </div>
   </section>
 
-  <section class="band" aria-labelledby="plus-title">
+  <section class="band alt" aria-labelledby="plus-title">
     <h2 id="plus-title">Tout le reste, au même endroit.</h2>
-    <dl class="list">
-      <div><dt>Mixeur</dt><dd>Le volume de chaque micro et de chaque son d'OBS, au doigt, depuis la tablette.</dd></div>
-      <div><dt>Ambiances</dt><dd>Un bouton change la scène et la couleur de tes bandes LED en même temps.</dd></div>
-      <div><dt>Automatisations</dt><dd>« Quand un sub arrive → lumières orange, scène, son. » Des idées toutes prêtes pour démarrer.</dd></div>
-      <div><dt>Lumières Wi-Fi</dt><dd>Philips Hue, Govee, Elgato, Nanoleaf, WLED, LIFX et LSC Smart, en plus du Bluetooth : l'app détecte ce qui est sur ton réseau.</dd></div>
-      <div><dt>Voix et sons</dt><dd>Un soundboard avec tes propres sons et des effets de voix sur ton micro (radio, téléphone, grave…), en un bouton.</dd></div>
-      <div><dt>Stream Deck</dt><dd>Branche ton Stream Deck Elgato (MK.2, XL) : ses touches pilotent les mêmes boutons que la tablette.</dd></div>
-      <div><dt>Ton style</dt><dd>Couleurs, taille et forme des boutons, fond personnalisé : chaque tablette a son look.</dd></div>
-      <div><dt>Fond de caméra</dt><dd>Retirer, flouter ou remplacer le fond de ta webcam, sans fond vert, avec ou sans carte graphique NVIDIA.</dd></div>
-      <div><dt>Moments et Shorts</dt><dd>Marque les meilleurs passages pendant le live, l'app prépare les extraits verticaux avec sous-titres.</dd></div>
-      <div><dt>Résumé de fin de live</dt><dd>Durée, moments, clips et alertes du live, prêts à coller sur Discord.</dd></div>
-    </dl>
+    <ul class="tiles small">
+      <li><b>Mixeur</b><span>au doigt</span></li>
+      <li><b>Ambiances</b><span>scène + LED</span></li>
+      <li><b>Automatisations</b><span>un sub → tout réagit</span></li>
+      <li><b>Lumières Wi-Fi</b><span>Hue, Govee, Elgato, WLED…</span></li>
+      <li><b>Voix et sons</b><span>soundboard, effets de voix</span></li>
+      <li><b>Stream Deck</b><span>MK.2 et XL</span></li>
+      <li><b>Fond de caméra</b><span>sans fond vert</span></li>
+      <li><b>Moments et Shorts</b><span>extraits verticaux</span></li>
+    </ul>
   </section>
 
-  <section class="band alt" aria-labelledby="guide-title">
+  <section class="band" aria-labelledby="guide-title">
     <div class="split">
       <div>
         <h2 id="guide-title">Branché en trois étapes.</h2>
-        <p>Le guide animé te montre où cliquer, écran par écran&nbsp;: le mot de passe d'OBS, le Client ID de Twitch, puis le code de ta tablette.</p>
+        <p>Le guide animé te montre où cliquer, écran par écran.</p>
         <div class="actions"><a class="cta" href="guide.html">Ouvrir le guide de connexion</a></div>
       </div>
       <ol class="steps-mini">
@@ -120,12 +161,11 @@
     </div>
   </section>
 
-  <section class="band" id="leger" aria-labelledby="leger-title">
+  <section class="band alt" id="leger" aria-labelledby="leger-title">
     <div class="split">
       <div>
         <h2 id="leger-title">Pensée pour un seul PC.</h2>
-        <p>Le jeu, OBS et le multistream tournent souvent sur la même machine. L'app reste discrète : rien n'est rafraîchi quand sa fenêtre est réduite, et un mode économie coupe les animations.</p>
-        <p>L'effet de fond de caméra tourne sur le processeur et laisse toute la carte graphique au jeu.</p>
+        <p>Le jeu, OBS et l'app sur la même machine : elle reste discrète, et un mode économie coupe les animations.</p>
       </div>
       <figure class="spec">
         <div class="spec-row"><span>Services payants</span><b>aucun</b></div>

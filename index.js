@@ -92,3 +92,30 @@ room?.onTile((name) => {
     say(`« ${name} » : dans l'app, ce bouton pilote OBS. Essaie-le dans la démo complète.`);
   }
 });
+
+
+// « Regarde-la tourner » : un petit film de l'app qui avance tout seul (sub → alerte OBS → tablette → lumières).
+// Les étapes sont cliquables ; avec « moins d'animations », le film ne défile plus tout seul.
+const film = document.getElementById("film");
+if (film) {
+  const steps = [...document.querySelectorAll(".film-steps [data-scene]")];
+  const filmClock = document.getElementById("film-clock");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let scene = 0, auto = 0, live = 5020;
+  const show = (n) => {
+    scene = n;
+    film.dataset.scene = String(n);
+    steps.forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.scene) === n)));
+  };
+  const play = () => {
+    clearInterval(auto);
+    if (!still) auto = setInterval(() => show((scene + 1) % steps.length), 3600);
+  };
+  steps.forEach((b) => b.addEventListener("click", () => {
+    show(Number(b.dataset.scene));
+    play();
+  }));
+  setInterval(() => (filmClock.textContent = clock(++live)), 1000);
+  show(0);
+  play();
+}
